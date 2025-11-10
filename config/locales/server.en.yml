@@ -1,0 +1,6 @@
+en:
+  site_settings:
+    hoojah_enabled: "Enable the Hoojah plugin globally"
+    hoojah_allow_topic_creators_enable: "Allow topic creators to enable Hoojah on their topics"
+    hoojah_min_trust_level_to_vote: "Minimum trust level required to vote on Hoojah polls"
+    hoojah_show_vote_counts_to_voters_only: "Only show vote counts to users who have voted"

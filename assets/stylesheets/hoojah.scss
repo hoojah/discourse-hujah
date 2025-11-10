@@ -1,0 +1,353 @@
+// Hoojah Plugin Styles
+
+// Color Variables
+$hoojah-agree-color: #46a84a;
+$hoojah-neutral-color: #888;
+$hoojah-disagree-color: #e74c3c;
+$hoojah-border-color: #ddd;
+$hoojah-bg-light: #f9f9f9;
+
+// Hoojah Poll Container
+.hoojah-poll-container {
+  margin: 20px 0;
+  padding: 20px;
+  background: $hoojah-bg-light;
+  border: 1px solid $hoojah-border-color;
+  border-radius: 8px;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin: 15px 0;
+  }
+}
+
+// Poll Widget
+.hoojah-poll-widget {
+  .hoojah-poll-header {
+    h3 {
+      margin: 0 0 15px 0;
+      font-size: 1.2em;
+      color: var(--primary);
+    }
+  }
+
+  .hoojah-vote-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .hoojah-vote-btn {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px 20px;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      .d-icon {
+        font-size: 1.1em;
+      }
+
+      .vote-count {
+        margin-left: 8px;
+        padding: 2px 8px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        font-size: 0.9em;
+      }
+
+      &.agree {
+        background: lighten($hoojah-agree-color, 35%);
+        color: darken($hoojah-agree-color, 10%);
+        border-color: lighten($hoojah-agree-color, 20%);
+
+        &:hover {
+          background: lighten($hoojah-agree-color, 30%);
+          border-color: $hoojah-agree-color;
+        }
+
+        &.active {
+          background: $hoojah-agree-color;
+          color: white;
+          border-color: darken($hoojah-agree-color, 10%);
+        }
+      }
+
+      &.neutral {
+        background: lighten($hoojah-neutral-color, 45%);
+        color: darken($hoojah-neutral-color, 10%);
+        border-color: lighten($hoojah-neutral-color, 30%);
+
+        &:hover {
+          background: lighten($hoojah-neutral-color, 40%);
+          border-color: $hoojah-neutral-color;
+        }
+
+        &.active {
+          background: $hoojah-neutral-color;
+          color: white;
+          border-color: darken($hoojah-neutral-color, 10%);
+        }
+      }
+
+      &.disagree {
+        background: lighten($hoojah-disagree-color, 35%);
+        color: darken($hoojah-disagree-color, 10%);
+        border-color: lighten($hoojah-disagree-color, 20%);
+
+        &:hover {
+          background: lighten($hoojah-disagree-color, 30%);
+          border-color: $hoojah-disagree-color;
+        }
+
+        &.active {
+          background: $hoojah-disagree-color;
+          color: white;
+          border-color: darken($hoojah-disagree-color, 10%);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .hoojah-vote-stats {
+    margin-top: 15px;
+
+    .vote-bar-container {
+      display: flex;
+      height: 30px;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      background: #e0e0e0;
+
+      .vote-bar {
+        transition: width 0.3s ease;
+
+        &.agree {
+          background: $hoojah-agree-color;
+        }
+
+        &.neutral {
+          background: $hoojah-neutral-color;
+        }
+
+        &.disagree {
+          background: $hoojah-disagree-color;
+        }
+      }
+    }
+
+    .vote-percentages {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9em;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .agree-pct {
+        color: $hoojah-agree-color;
+        font-weight: 600;
+      }
+
+      .neutral-pct {
+        color: $hoojah-neutral-color;
+        font-weight: 600;
+      }
+
+      .disagree-pct {
+        color: $hoojah-disagree-color;
+        font-weight: 600;
+      }
+    }
+
+    .total-votes {
+      text-align: center;
+      color: var(--primary-medium);
+      font-size: 0.9em;
+      margin-top: 8px;
+    }
+  }
+
+  .hoojah-remove-vote {
+    margin-top: 10px;
+    text-align: center;
+
+    .btn-link {
+      color: var(--primary-medium);
+      font-size: 0.9em;
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+}
+
+// Filter Tabs
+.hoojah-filter-tabs {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid $hoojah-border-color;
+
+  .nav-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .nav-item {
+      .nav-link {
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: white;
+        border: 1px solid $hoojah-border-color;
+        color: var(--primary);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .d-icon {
+          font-size: 0.9em;
+        }
+
+        &:hover {
+          background: var(--primary-very-low);
+          border-color: var(--primary-low);
+        }
+
+        &.active {
+          background: var(--primary);
+          color: white;
+          border-color: var(--primary);
+        }
+      }
+    }
+  }
+}
+
+// Stance Selector in Composer
+.hoojah-composer-field {
+  margin: 10px 0;
+  padding: 10px;
+  background: $hoojah-bg-light;
+  border-radius: 6px;
+
+  .hoojah-stance-selector {
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .stance-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+
+      .stance-btn {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        border: 1px solid $hoojah-border-color;
+        background: white;
+        color: var(--primary);
+        transition: all 0.2s ease;
+
+        .d-icon {
+          margin-right: 4px;
+        }
+
+        &.agree {
+          &:hover,
+          &.selected {
+            background: $hoojah-agree-color;
+            color: white;
+            border-color: darken($hoojah-agree-color, 10%);
+          }
+        }
+
+        &.neutral {
+          &:hover,
+          &.selected {
+            background: $hoojah-neutral-color;
+            color: white;
+            border-color: darken($hoojah-neutral-color, 10%);
+          }
+        }
+
+        &.disagree {
+          &:hover,
+          &.selected {
+            background: $hoojah-disagree-color;
+            color: white;
+            border-color: darken($hoojah-disagree-color, 10%);
+          }
+        }
+
+        &.selected {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+// Post Stance Badge
+.post-stance-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-left: 8px;
+
+  &.agree {
+    background: lighten($hoojah-agree-color, 40%);
+    color: darken($hoojah-agree-color, 10%);
+  }
+
+  &.neutral {
+    background: lighten($hoojah-neutral-color, 50%);
+    color: darken($hoojah-neutral-color, 10%);
+  }
+
+  &.disagree {
+    background: lighten($hoojah-disagree-color, 40%);
+    color: darken($hoojah-disagree-color, 10%);
+  }
+}
+
+// Admin Menu
+.topic-admin-hoojah {
+  .d-icon {
+    margin-right: 6px;
+  }
+}

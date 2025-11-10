@@ -1,0 +1,7 @@
+{{#if this.shouldShowStanceSelector}}
+  <div class="hoojah-composer-field">
+    <HoojahStanceSelector
+      @onStanceChange={{action "setStance"}}
+    />
+  </div>
+{{/if}}

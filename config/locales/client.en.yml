@@ -1,0 +1,23 @@
+en:
+  js:
+    hoojah:
+      poll_title: "What's your stance on this topic?"
+      agree: "Agree"
+      neutral: "Neutral"
+      disagree: "Disagree"
+      enable_hoojah: "Enable Hoojah Poll"
+      disable_hoojah: "Disable Hoojah Poll"
+      total_votes:
+        one: "%{count} vote"
+        other: "%{count} votes"
+      remove_vote: "Remove my vote"
+      select_stance: "Reply stance (optional):"
+      all_replies: "All Replies"
+      agree_replies: "Agree"
+      neutral_replies: "Neutral"
+      disagree_replies: "Disagree"
+      no_stance: "No stance"
+      stance_badge:
+        agree: "Agrees"
+        neutral: "Neutral"
+        disagree: "Disagrees"

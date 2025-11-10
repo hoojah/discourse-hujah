@@ -1,0 +1,16 @@
+<div class="hoojah-stance-selector">
+  <label>{{i18n "hoojah.select_stance"}}</label>
+  <div class="stance-buttons">
+    {{#each this.stances as |stance|}}
+      <button
+        class="btn btn-small stance-btn {{stance.class}} {{if (this.isSelected stance.key) 'selected'}}"
+        {{on "click" (fn this.selectStance stance.key)}}
+      >
+        {{#if stance.icon}}
+          {{d-icon stance.icon}}
+        {{/if}}
+        {{stance.label}}
+      </button>
+    {{/each}}
+  </div>
+</div>

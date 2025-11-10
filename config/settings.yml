@@ -1,0 +1,27 @@
+plugins:
+  hoojah_enabled:
+    default: true
+    client: true
+    description: "Enable the Hoojah plugin globally"
+
+  hoojah_allow_topic_creators_enable:
+    default: true
+    client: true
+    description: "Allow topic creators to enable Hoojah on their topics (moderators can always enable)"
+
+  hoojah_min_trust_level_to_vote:
+    type: enum
+    default: 0
+    choices:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    client: true
+    description: "Minimum trust level required to vote on Hoojah polls"
+
+  hoojah_show_vote_counts_to_voters_only:
+    default: false
+    client: true
+    description: "Only show vote counts to users who have voted"
