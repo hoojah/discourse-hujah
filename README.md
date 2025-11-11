@@ -29,49 +29,40 @@ Filter replies by stance using the tab navigation below the poll widget.
 
 ## Installation
 
-### Via Git Clone (Recommended for Development)
+> **📖 For detailed installation instructions, see [INSTALLATION.md](./INSTALLATION.md)**
 
-1. Navigate to your Discourse plugins directory:
-   ```bash
-   cd /var/discourse/plugins
-   # or for development
-   cd discourse/plugins
-   ```
+### Quick Install (Docker - Most Common)
 
-2. Clone this repository:
-   ```bash
-   git clone https://github.com/hoojah/discourse-hujah.git
-   ```
+Most production Discourse sites use Docker. Here's the quick version:
 
-3. Rebuild your Discourse container (production):
+1. **SSH into your server**:
    ```bash
+   ssh root@your-discourse-server.com
    cd /var/discourse
+   ```
+
+2. **Edit the configuration**:
+   ```bash
+   nano containers/app.yml
+   ```
+
+3. **Add the plugin** under `hooks:` → `after_code:` → `cmd:`:
+   ```yaml
+   - git clone https://github.com/hoojah/discourse-hujah.git
+   ```
+
+4. **Rebuild** (takes 5-10 minutes):
+   ```bash
    ./launcher rebuild app
    ```
 
-4. Or for development, restart your Rails server:
-   ```bash
-   cd discourse
-   bundle exec rails server
-   ```
+5. **Configure** at Admin → Settings → Plugins → hoojah
 
-### Via Docker (Production)
+### Other Installation Methods
 
-Add to your `containers/app.yml`:
-
-```yaml
-hooks:
-  after_code:
-    - exec:
-        cd: $home/plugins
-        cmd:
-          - git clone https://github.com/hoojah/discourse-hujah.git
-```
-
-Then rebuild:
-```bash
-./launcher rebuild app
-```
+- **Managed Hosting**: Contact your hosting provider with the plugin repository URL
+- **Development**: Clone into `discourse/plugins/` and restart Rails server
+- **Troubleshooting**: See [INSTALLATION.md](./INSTALLATION.md) for detailed help
 
 ## Configuration
 
