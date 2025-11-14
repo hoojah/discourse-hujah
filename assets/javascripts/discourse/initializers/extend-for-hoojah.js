@@ -7,7 +7,7 @@ function initializeHoojah(api) {
 
   // Add hoojah poll data to topic model
   api.modifyClass("model:topic", {
-    pluginId: "discourse-hoojah",
+    pluginId: "discourse-hujah",
 
     hoojahPoll: null,
     hoojahEnabled: false,
@@ -22,11 +22,10 @@ function initializeHoojah(api) {
 
   // Add stance to composer model
   api.modifyClass("model:composer", {
-    pluginId: "discourse-hoojah",
+    pluginId: "discourse-hujah",
 
     hoojahStance: null,
 
-    @action
     setHoojahStance(stance) {
       this.set("hoojahStance", stance);
     },
@@ -110,7 +109,7 @@ function initializeHoojah(api) {
 
   // Modify post creation to include stance
   api.modifyClass("model:post", {
-    pluginId: "discourse-hoojah",
+    pluginId: "discourse-hujah",
 
     createProperties() {
       const props = this._super(...arguments);
