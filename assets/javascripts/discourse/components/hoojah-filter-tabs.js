@@ -1,8 +1,31 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
+import { setComponentTemplate } from "@ember/component";
+import { hbs } from "ember-cli-htmlbars";
 
-export default class HoojahFilterTabs extends Component {
+const TEMPLATE = hbs`
+<div class="hoojah-filter-tabs">
+  <ul class="nav nav-pills">
+    {{#each this.filters as |filter|}}
+      <li class="nav-item">
+        <a
+          href="#"
+          class="nav-link {{if (this.isActive filter.key) 'active'}}"
+          {{on "click" (fn this.selectFilter filter.key)}}
+        >
+          {{#if filter.icon}}
+            {{d-icon filter.icon}}
+          {{/if}}
+          {{filter.label}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+`;
+
+export default setComponentTemplate(TEMPLATE, class HoojahFilterTabs extends Component {
   @tracked currentFilter = "all";
 
   get filters() {
@@ -28,4 +51,4 @@ export default class HoojahFilterTabs extends Component {
   isActive(filterKey) {
     return this.currentFilter === filterKey;
   }
-}
+});

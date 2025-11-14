@@ -2,7 +2,7 @@
 
 # name: discourse-hujah
 # about: A Discourse plugin that adds agree/neutral/disagree polls to topics with reply categorization
-# version: 1.0.0
+# version: 0.1.0
 # authors: Hoojah Team
 # url: https://github.com/hoojah/discourse-hujah
 # required_version: 2.7.0

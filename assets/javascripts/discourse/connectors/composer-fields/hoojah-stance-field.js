@@ -10,7 +10,14 @@ export default {
   },
 
   setupComponent(args, component) {
-    component.set("shouldShowStanceSelector", this.shouldRender(args, component));
+    // shouldRender is already called by Discourse, don't call it manually
+    const composer = args.model;
+    component.set("shouldShowStanceSelector",
+      composer &&
+      composer.topic &&
+      composer.topic.hoojahEnabled &&
+      composer.action === "reply"
+    );
   },
 
   actions: {
