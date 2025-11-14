@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# name: discourse-hoojah
+# name: discourse-hujah
 # about: A Discourse plugin that adds agree/neutral/disagree polls to topics with reply categorization
 # version: 1.0.0
 # authors: Hoojah Team
@@ -13,7 +13,7 @@ register_asset 'stylesheets/hoojah.scss'
 
 after_initialize do
   module ::DiscourseHoojah
-    PLUGIN_NAME ||= 'discourse-hoojah'
+    PLUGIN_NAME ||= 'discourse-hujah'
 
     class Engine < ::Rails::Engine
       engine_name PLUGIN_NAME
@@ -22,17 +22,18 @@ after_initialize do
   end
 
   # Load plugin files
+  plugin_root = File.expand_path('..', __FILE__)
   [
-    '../lib/hoojah/engine.rb',
-    '../lib/hoojah/poll.rb',
-    '../lib/hoojah/vote.rb',
-    '../lib/hoojah/post_stance.rb',
-    '../app/controllers/hoojah/polls_controller.rb',
-    '../app/controllers/hoojah/votes_controller.rb',
-    '../app/controllers/hoojah/posts_controller.rb',
-    '../app/serializers/hoojah_poll_serializer.rb',
-    '../app/serializers/hoojah_vote_serializer.rb',
-  ].each { |path| require_relative path }
+    'lib/hoojah/engine.rb',
+    'lib/hoojah/poll.rb',
+    'lib/hoojah/vote.rb',
+    'lib/hoojah/post_stance.rb',
+    'app/controllers/hoojah/polls_controller.rb',
+    'app/controllers/hoojah/votes_controller.rb',
+    'app/controllers/hoojah/posts_controller.rb',
+    'app/serializers/hoojah_poll_serializer.rb',
+    'app/serializers/hoojah_vote_serializer.rb',
+  ].each { |path| require File.join(plugin_root, path) }
 
   # Register routes
   DiscourseHoojah::Engine.routes.draw do
