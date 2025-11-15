@@ -125,7 +125,7 @@ after_initialize do
     poll = HoojahPoll.find_by(id: poll_id)
     if poll
       MessageBus.publish(
-        "/topic/#{topic_id}",
+        "/hoojah/topic/#{topic_id}",
         {
           type: 'hoojah_vote_updated',
           hoojah_poll: HoojahPollSerializer.new(poll, scope: Guardian.new, root: false).as_json
