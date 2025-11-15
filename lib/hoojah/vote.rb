@@ -17,6 +17,8 @@ class HoojahVote < ActiveRecord::Base
   private
 
   def publish_vote_change
+    return unless hoojah_poll&.topic_id
+
     DiscourseEvent.trigger(
       :hoojah_vote_changed,
       hoojah_poll_id,
