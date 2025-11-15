@@ -148,6 +148,23 @@ This document tracks the issues encountered and fixed on the elect.io deployment
 
 ---
 
+## ✅ Issue 10: NoMethodError - undefined method `user' for nil
+
+**Error**: `NoMethodError (undefined method 'user' for nil)` when clicking vote buttons
+
+**Cause**: The `HoojahPollSerializer` was being instantiated in the MessageBus event handler without a `scope` parameter. When the serializer tried to access `scope.user` to check permissions, it failed because `scope` was `nil`.
+
+**Fix**:
+- Added `scope: Guardian.new` parameter when creating the serializer in the `:hoojah_vote_changed` event handler
+- This provides the required Guardian scope object that the serializer expects
+
+**Files Changed**:
+- `plugin.rb` (line 131)
+
+**Commit**: dc1a5ed
+
+---
+
 ## Technical Details
 
 ### Component Structure (After Fixes)
