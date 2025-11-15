@@ -36,31 +36,34 @@ function initializeHoojah(api) {
     if (url.match(/^\/t\//)) {
       const topicId = url.split("/")[2];
       if (topicId) {
-        api.messageBus.subscribe(`/topic/${topicId}`, (data) => {
-          if (data.type === "hoojah_vote_updated" && data.hoojah_poll) {
-            const topic = api.container.lookup("controller:topic").model;
-            if (topic && topic.id == topicId) {
-              topic.set("hoojahPoll", data.hoojah_poll);
+        const messageBus = api.container.lookup("service:message-bus");
+        if (messageBus) {
+          messageBus.subscribe(`/topic/${topicId}`, (data) => {
+            if (data.type === "hoojah_vote_updated" && data.hoojah_poll) {
+              const topic = api.container.lookup("controller:topic").model;
+              if (topic && topic.id == topicId) {
+                topic.set("hoojahPoll", data.hoojah_poll);
+              }
+            } else if (data.type === "hoojah_enabled" && data.hoojah_poll) {
+              const topic = api.container.lookup("controller:topic").model;
+              if (topic && topic.id == topicId) {
+                topic.set("hoojahPoll", data.hoojah_poll);
+                topic.set("hoojahEnabled", true);
+              }
+            } else if (data.type === "hoojah_disabled") {
+              const topic = api.container.lookup("controller:topic").model;
+              if (topic && topic.id == topicId) {
+                topic.set("hoojahEnabled", false);
+              }
+            } else if (data.type === "hoojah_post_stance_updated") {
+              // Refresh post stream to show updated stance
+              const topic = api.container.lookup("controller:topic");
+              if (topic && topic.model && topic.model.id == topicId) {
+                topic.get("model.postStream").triggerChangedPost(data.post_id);
+              }
             }
-          } else if (data.type === "hoojah_enabled" && data.hoojah_poll) {
-            const topic = api.container.lookup("controller:topic").model;
-            if (topic && topic.id == topicId) {
-              topic.set("hoojahPoll", data.hoojah_poll);
-              topic.set("hoojahEnabled", true);
-            }
-          } else if (data.type === "hoojah_disabled") {
-            const topic = api.container.lookup("controller:topic").model;
-            if (topic && topic.id == topicId) {
-              topic.set("hoojahEnabled", false);
-            }
-          } else if (data.type === "hoojah_post_stance_updated") {
-            // Refresh post stream to show updated stance
-            const topic = api.container.lookup("controller:topic");
-            if (topic && topic.model && topic.model.id == topicId) {
-              topic.get("model.postStream").triggerChangedPost(data.post_id);
-            }
-          }
-        });
+          });
+        }
       }
     }
   });
