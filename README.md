@@ -2,8 +2,17 @@
 
 A Discourse plugin that adds agree/neutral/disagree polls to topics with reply categorization and filtering.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
 ![Discourse](https://img.shields.io/badge/discourse-2.7.0+-orange.svg)
+![Tested](https://img.shields.io/badge/tested-v3.5.2-green.svg)
+
+## Status
+
+**Current Version:** 0.1.0 (Beta)
+**Tested On:** Discourse v3.5.2 / Ember v5.12.0
+**Status:** ✅ Stable - All critical bugs resolved
+
+Recent improvements include fixes for vote serialization, UI feedback, trust level verification, and Ember v5 compatibility. See [Changelog](#changelog) for details.
 
 ## Features
 
@@ -175,6 +184,14 @@ GET /hoojah/posts/:topic_id?stance=agree|neutral|disagree|all
 
 ## Development
 
+### Tested Versions
+
+This plugin has been tested and verified working on:
+- **Discourse**: v3.5.2 (minimum required: v2.7.0)
+- **Ember**: v5.12.0
+- **Ruby**: 3.2+
+- **PostgreSQL**: 13+
+
 ### Running Tests
 
 ```bash
@@ -240,27 +257,52 @@ Contributions are welcome! Please:
 
 ### Poll Not Showing
 
+**Common Solutions:**
 - Ensure `hoojah_enabled` is set to `true` in site settings
-- Verify the topic has Hoojah enabled
+- Verify the topic has Hoojah enabled (check admin wrench menu)
 - Check browser console for JavaScript errors
+- Clear browser cache and hard reload (Ctrl+Shift+R)
+
+**Recent Fix:** Property naming alignment between backend and frontend (v0.1.0)
 
 ### Can't Vote
 
+**Common Solutions:**
 - Confirm you're logged in
-- Check your trust level meets the minimum requirement
-- Verify `hoojah_enabled` is true
+- Check your trust level meets the minimum requirement (default: TL0)
+- Verify `hoojah_enabled` is true in site settings
+- Check Rails logs for specific errors
 
-### Votes Not Updating
+**Recent Fix:** Trust level verification now uses correct API (v0.1.0)
 
-- Check MessageBus is working properly
+### Votes Not Updating / 500 Errors
+
+**Common Solutions:**
+- Check MessageBus is working properly (look for WebSocket connections in Network tab)
 - Verify no browser extensions are blocking WebSocket connections
-- Look for errors in Rails logs
+- Look for errors in Rails logs (`/logs` in browser or server logs)
+- Ensure plugin name is correctly set in controllers
+
+**Recent Fixes:**
+- Vote serialization with proper Guardian scope (v0.1.0)
+- Poll data reloading after vote changes (v0.1.0)
+- Controller plugin name verification (v0.1.0)
 
 ### Stance Not Saving
 
-- Ensure you selected a stance before submitting
+**Common Solutions:**
+- Ensure you selected a stance before submitting the reply
 - Check that the topic has Hoojah enabled
 - Verify the post was created successfully
+- Check Rails logs for database errors
+
+### Advanced Troubleshooting
+
+For detailed troubleshooting steps and fixes for Discourse v3.5.2+ / Ember v5.12+, see:
+- [doc/ELECT_IO_FIXES.md](./doc/ELECT_IO_FIXES.md) - Comprehensive fix documentation
+- Check Rails logs: `tail -f log/production.log` (or development.log)
+- Check browser console for JavaScript errors (F12 → Console)
+- Verify plugin is loaded: Admin → Plugins → look for "discourse-hujah"
 
 ## Support
 
@@ -277,12 +319,31 @@ Developed by the Hoojah Team for the Discourse community.
 
 ## Changelog
 
-### Version 1.0.0 (2025-01-10)
+### Version 0.1.0 (2025-11-15)
 
-- Initial release
+**Initial Release - Hoojah Topic Poll Features**
+
+Core Features:
 - Three-option polling (agree/neutral/disagree)
 - Reply stance categorization
 - Filtered views by stance
-- Real-time vote updates
+- Real-time vote updates via MessageBus
 - Mobile-responsive design
 - Comprehensive test coverage
+
+Recent Bug Fixes & Improvements:
+- ✅ Fixed vote serialization issues by providing proper Guardian scope
+- ✅ Fixed vote update UI feedback by reloading poll data after vote changes
+- ✅ Fixed voting 500 errors by correcting trust level verification
+- ✅ Fixed poll visibility by aligning property naming between backend and frontend
+- ✅ Fixed critical bugs preventing plugin initialization
+- ✅ Improved compatibility with Discourse v3.5.2 / Ember v5.12.0
+- ✅ Fixed component template resolution for modern Ember
+- ✅ Fixed MessageBus integration for real-time updates
+
+**What's Next:**
+- v0.2.0: 1-on-1 debate features (planned)
+- v0.3.0: Analytics features (planned)
+- v1.0.0: Public release (planned)
+
+For detailed troubleshooting information, see [doc/ELECT_IO_FIXES.md](./doc/ELECT_IO_FIXES.md)
