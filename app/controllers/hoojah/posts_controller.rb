@@ -2,7 +2,7 @@
 
 module DiscourseHoojah
   class PostsController < ::ApplicationController
-    requires_plugin 'discourse-hoojah'
+    requires_plugin 'discourse-hujah'
 
     before_action :find_topic
 

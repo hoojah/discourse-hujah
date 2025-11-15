@@ -9,10 +9,9 @@ function initializeHoojah(api) {
   api.modifyClass("model:topic", {
     pluginId: "discourse-hujah",
 
-    hoojahPoll: null,
-    hoojahEnabled: false,
-
-    setupHoojahData() {
+    init() {
+      this._super(...arguments);
+      // Set up hoojah data when topic is initialized
       if (this.hoojah_poll) {
         this.set("hoojahPoll", this.hoojah_poll);
         this.set("hoojahEnabled", true);

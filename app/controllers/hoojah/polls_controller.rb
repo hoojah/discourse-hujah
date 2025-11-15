@@ -2,7 +2,7 @@
 
 module DiscourseHoojah
   class PollsController < ::ApplicationController
-    requires_plugin 'discourse-hoojah'
+    requires_plugin 'discourse-hujah'
 
     before_action :ensure_logged_in, except: [:show]
     before_action :find_topic, only: [:create, :destroy, :show]

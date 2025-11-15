@@ -2,7 +2,7 @@
 
 module DiscourseHoojah
   class VotesController < ::ApplicationController
-    requires_plugin 'discourse-hoojah'
+    requires_plugin 'discourse-hujah'
 
     before_action :ensure_logged_in
     before_action :find_poll
