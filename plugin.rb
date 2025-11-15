@@ -128,7 +128,7 @@ after_initialize do
         "/topic/#{topic_id}",
         {
           type: 'hoojah_vote_updated',
-          hoojah_poll: HoojahPollSerializer.new(poll, root: false).as_json
+          hoojah_poll: HoojahPollSerializer.new(poll, scope: Guardian.new, root: false).as_json
         },
         user_ids: User.where("admin OR moderator OR id IN (SELECT user_id FROM topic_allowed_users WHERE topic_id = ?)", topic_id).pluck(:id)
       )
