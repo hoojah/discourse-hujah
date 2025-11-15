@@ -1,15 +1,13 @@
-{{#if @outletArgs.model.hoojahEnabled}}
+{{#if @outletArgs.model.hoojah_poll}}
   <div class="hoojah-poll-container">
     <HoojahPollWidget
-      @poll={{@outletArgs.model.hoojahPoll}}
+      @poll={{@outletArgs.model.hoojah_poll}}
       @onPollUpdate={{action "updateHoojahPoll"}}
     />
 
-    {{#if @outletArgs.model.hoojahPoll}}
-      <HoojahFilterTabs
-        @poll={{@outletArgs.model.hoojahPoll}}
-        @onFilterChange={{action "filterPostsByStance"}}
-      />
-    {{/if}}
+    <HoojahFilterTabs
+      @poll={{@outletArgs.model.hoojah_poll}}
+      @onFilterChange={{action "filterPostsByStance"}}
+    />
   </div>
 {{/if}}

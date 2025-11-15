@@ -11,11 +11,7 @@ function initializeHoojah(api) {
 
     init() {
       this._super(...arguments);
-      // Set up hoojah data when topic is initialized
-      if (this.hoojah_poll) {
-        this.set("hoojahPoll", this.hoojah_poll);
-        this.set("hoojahEnabled", true);
-      }
+      // hoojah_poll is set by the backend serializer
     },
   });
 
@@ -41,18 +37,17 @@ function initializeHoojah(api) {
             if (data.type === "hoojah_vote_updated" && data.hoojah_poll) {
               const topic = api.container.lookup("controller:topic").model;
               if (topic && topic.id == topicId) {
-                topic.set("hoojahPoll", data.hoojah_poll);
+                topic.set("hoojah_poll", data.hoojah_poll);
               }
             } else if (data.type === "hoojah_enabled" && data.hoojah_poll) {
               const topic = api.container.lookup("controller:topic").model;
               if (topic && topic.id == topicId) {
-                topic.set("hoojahPoll", data.hoojah_poll);
-                topic.set("hoojahEnabled", true);
+                topic.set("hoojah_poll", data.hoojah_poll);
               }
             } else if (data.type === "hoojah_disabled") {
               const topic = api.container.lookup("controller:topic").model;
               if (topic && topic.id == topicId) {
-                topic.set("hoojahEnabled", false);
+                topic.set("hoojah_poll", null);
               }
             } else if (data.type === "hoojah_post_stance_updated") {
               // Refresh post stream to show updated stance
@@ -78,20 +73,21 @@ function initializeHoojah(api) {
 
     if (!canEnable) return;
 
+    const isEnabled = topic.hoojah_poll && topic.hoojah_poll.enabled;
+
     return {
       className: "topic-admin-hoojah",
-      label: topic.hoojahEnabled
+      label: isEnabled
         ? "hoojah.disable_hoojah"
         : "hoojah.enable_hoojah",
-      icon: topic.hoojahEnabled ? "times" : "poll",
+      icon: isEnabled ? "times" : "poll",
       action: () => {
-        if (topic.hoojahEnabled) {
+        if (isEnabled) {
           ajax(`/hoojah/polls/${topic.id}`, {
             type: "DELETE",
           })
             .then(() => {
-              topic.set("hoojahEnabled", false);
-              topic.set("hoojahPoll", null);
+              topic.set("hoojah_poll", null);
             })
             .catch(popupAjaxError);
         } else {
@@ -100,8 +96,7 @@ function initializeHoojah(api) {
             data: { topic_id: topic.id },
           })
             .then((result) => {
-              topic.set("hoojahPoll", result.hoojah_poll);
-              topic.set("hoojahEnabled", true);
+              topic.set("hoojah_poll", result.hoojah_poll);
             })
             .catch(popupAjaxError);
         }

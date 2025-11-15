@@ -4,7 +4,7 @@ export default {
     return (
       composer &&
       composer.topic &&
-      composer.topic.hoojahEnabled &&
+      composer.topic.hoojah_poll &&
       composer.action === "reply"
     );
   },
@@ -15,7 +15,7 @@ export default {
     component.set("shouldShowStanceSelector",
       composer &&
       composer.topic &&
-      composer.topic.hoojahEnabled &&
+      composer.topic.hoojah_poll &&
       composer.action === "reply"
     );
   },

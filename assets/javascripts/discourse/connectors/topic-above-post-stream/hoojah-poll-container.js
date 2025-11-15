@@ -12,7 +12,7 @@ export default {
     updateHoojahPoll(poll) {
       const topic = this.args.model;
       if (topic) {
-        topic.set("hoojahPoll", poll);
+        topic.set("hoojah_poll", poll);
       }
     },
 

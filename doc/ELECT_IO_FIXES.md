@@ -87,6 +87,29 @@ This document tracks the issues encountered and fixed on the elect.io deployment
 
 ---
 
+## ✅ Issue 7: Poll Not Appearing on Topic Page
+
+**Error**: Poll widget not showing even though no JavaScript errors
+
+**Cause**: Property naming mismatch between backend (snake_case `hoojah_poll`) and frontend checks (camelCase `hoojahEnabled` and `hoojahPoll`)
+
+**Fix**:
+- Changed all frontend references from `hoojahEnabled`/`hoojahPoll` to `hoojah_poll`
+- Updated connector template condition from `@outletArgs.model.hoojahEnabled` to `@outletArgs.model.hoojah_poll`
+- Updated MessageBus handlers to use `topic.set("hoojah_poll", ...)` instead of `hoojahPoll`
+- Updated composer connector to check `composer.topic.hoojah_poll` instead of `hoojahEnabled`
+- Removed unnecessary property copies in topic model init
+
+**Files Changed**:
+- `assets/javascripts/discourse/initializers/extend-for-hoojah.js`
+- `assets/javascripts/discourse/templates/connectors/topic-above-post-stream/hoojah-poll-container.hbs`
+- `assets/javascripts/discourse/connectors/topic-above-post-stream/hoojah-poll-container.js`
+- `assets/javascripts/discourse/connectors/composer-fields/hoojah-stance-field.js`
+
+**Commit**: TBD
+
+---
+
 ## Technical Details
 
 ### Component Structure (After Fixes)
