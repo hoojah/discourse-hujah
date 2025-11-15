@@ -21,7 +21,8 @@ module DiscourseHoojah
       vote.vote_type = vote_type
       vote.save!
 
-      # Reload poll to get fresh vote counts
+      # Reload poll and associations to get fresh vote counts
+      @poll.hoojah_votes.reload
       @poll.reload
       render_serialized(@poll, HoojahPollSerializer, root: 'hoojah_poll')
     end
@@ -37,7 +38,8 @@ module DiscourseHoojah
 
       vote.update!(vote_type: vote_type)
 
-      # Reload poll to get fresh vote counts
+      # Reload poll and associations to get fresh vote counts
+      @poll.hoojah_votes.reload
       @poll.reload
       render_serialized(@poll, HoojahPollSerializer, root: 'hoojah_poll')
     end
@@ -47,7 +49,8 @@ module DiscourseHoojah
 
       if vote
         vote.destroy!
-        # Reload poll to get fresh vote counts
+        # Reload poll and associations to get fresh vote counts
+        @poll.hoojah_votes.reload
         @poll.reload
         render_serialized(@poll, HoojahPollSerializer, root: 'hoojah_poll')
       else
