@@ -129,6 +129,25 @@ This document tracks the issues encountered and fixed on the elect.io deployment
 
 ---
 
+## ✅ Issue 9: Vote Update Shows Error 500 But Works
+
+**Error**: Clicking vote buttons shows Error 500 popup, but vote is saved (visible after refresh)
+
+**Cause**: After updating/creating/deleting a vote, the poll's `hoojah_votes` association was stale. When the controller tried to serialize the poll with fresh vote counts, the association still had cached data, causing serialization issues.
+
+**Fix**:
+- Added `@poll.reload` after vote changes in create/update/destroy actions
+- This ensures the `hoojah_votes` association is refreshed before serialization
+- Added safety check in vote's `after_commit` callback to prevent nil errors
+
+**Files Changed**:
+- `app/controllers/hoojah/votes_controller.rb` (lines 24-26, 40-42, 50-52)
+- `lib/hoojah/vote.rb` (line 20)
+
+**Commit**: d64ab40
+
+---
+
 ## Technical Details
 
 ### Component Structure (After Fixes)
