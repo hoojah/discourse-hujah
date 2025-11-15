@@ -106,7 +106,26 @@ This document tracks the issues encountered and fixed on the elect.io deployment
 - `assets/javascripts/discourse/connectors/topic-above-post-stream/hoojah-poll-container.js`
 - `assets/javascripts/discourse/connectors/composer-fields/hoojah-stance-field.js`
 
-**Commit**: TBD
+**Commit**: 0425058
+
+---
+
+## ✅ Issue 8: Voting Returns 500 Error
+
+**Error**: `XHR PUT https://.../hoojah/votes/2 [HTTP/2 500]`
+
+**Cause**: The `can_vote_hoojah?` Guardian method was using `has_trust_level?()` which doesn't exist or was incompatible with the Discourse version
+
+**Fix**:
+- Changed from `current_user.has_trust_level?(setting)` to `current_user.trust_level >= min_trust_level`
+- Added `.to_i` conversion for the site setting value
+- Added check to ensure poll is enabled before allowing votes
+- Used standard Discourse pattern for trust level verification
+
+**Files Changed**:
+- `plugin.rb` (lines 66-75)
+
+**Commit**: 12f05c1
 
 ---
 
