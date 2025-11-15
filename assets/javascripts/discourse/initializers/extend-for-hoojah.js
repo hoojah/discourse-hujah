@@ -33,7 +33,7 @@ function initializeHoojah(api) {
       if (topicId) {
         const messageBus = api.container.lookup("service:message-bus");
         if (messageBus) {
-          messageBus.subscribe(`/topic/${topicId}`, (data) => {
+          messageBus.subscribe(`/hoojah/topic/${topicId}`, (data) => {
             if (data.type === "hoojah_vote_updated" && data.hoojah_poll) {
               const topic = api.container.lookup("controller:topic").model;
               if (topic && topic.id == topicId) {

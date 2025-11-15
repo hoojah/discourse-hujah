@@ -33,7 +33,7 @@ module DiscourseHoojah
         )
       end
 
-      MessageBus.publish("/topic/#{@topic.id}", {
+      MessageBus.publish("/hoojah/topic/#{@topic.id}", {
         type: 'hoojah_enabled',
         hoojah_poll: HoojahPollSerializer.new(poll, scope: guardian, root: false).as_json
       })
@@ -48,7 +48,7 @@ module DiscourseHoojah
       if poll
         poll.update!(enabled: false)
 
-        MessageBus.publish("/topic/#{@topic.id}", {
+        MessageBus.publish("/hoojah/topic/#{@topic.id}", {
           type: 'hoojah_disabled'
         })
 

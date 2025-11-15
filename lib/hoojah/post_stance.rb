@@ -18,7 +18,7 @@ class HoojahPostStance < ActiveRecord::Base
 
   def publish_stance_change
     MessageBus.publish(
-      "/topic/#{hoojah_poll.topic_id}",
+      "/hoojah/topic/#{hoojah_poll.topic_id}",
       {
         type: 'hoojah_post_stance_updated',
         post_id: post_id,
