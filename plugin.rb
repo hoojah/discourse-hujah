@@ -67,8 +67,11 @@ after_initialize do
       return false unless SiteSetting.hoojah_enabled
       return false unless authenticated?
       return false unless poll
+      return false unless poll.enabled
 
-      current_user.has_trust_level?(SiteSetting.hoojah_min_trust_level_to_vote)
+      # Check trust level - convert setting to integer
+      min_trust_level = SiteSetting.hoojah_min_trust_level_to_vote.to_i
+      current_user.trust_level >= min_trust_level
     end
 
     def can_set_post_stance?(post)
