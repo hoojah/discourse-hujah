@@ -2,6 +2,7 @@
   <div class="hoojah-poll-container">
     <HoojahPollWidget
       @poll={{@outletArgs.model.hoojah_poll}}
+      @topic={{@outletArgs.model}}
       @onPollUpdate={{action "updateHoojahPoll"}}
     />
 
